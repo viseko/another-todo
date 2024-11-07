@@ -1,9 +1,10 @@
+import PageMain from "../pages/PageMain"
+import Header from "../widgets/Header"
+
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div className="w-screen min-h-screen bg-slate-300">
+      <PageMain />
     </div>
   )
 }
