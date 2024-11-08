@@ -2,7 +2,7 @@ const Container = ({children}) => {
 
   return (
     <div
-      className="container max-w-container"
+      className="grow flex flex-col container max-w-container px-4"
     >
       {children}
     </div>

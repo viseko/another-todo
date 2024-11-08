@@ -3,7 +3,7 @@ import Container from "../Container";
 const Page = ({children}) => {
   return (
     <div
-      className="py-10"
+      className="grow flex flex-col py-10"
     >
       <Container>
         {children}

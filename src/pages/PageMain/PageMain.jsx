@@ -1,13 +1,10 @@
 import Page from "../../shared/layout/Page";
+import TodoPanel from "../../widgets/TodoPanel";
 
 const PageMain = () => {
-  const className = `
-  
-  `;
-
   return (
     <Page>
-      Page Main
+      <TodoPanel />
     </Page>
   )
 };
