@@ -6,7 +6,9 @@ const addItem = (state, item) => {
   state.byID[id] = item;
   state.allID.push(id);
 
-  return state;
+  return {
+    ...state
+  };
 };
 
 const removeItem = (state, id) => {

@@ -1,12 +1,7 @@
 import ButtonIcon from "../../buttons/ButtonIcon";
+import useTaskStore from "../../../app/zustand/useTaskStore";
 
-const TaskCard = ({
-  title,
-  onCheck,
-  onDelete,
-  index,
-  checked
-}) => {
+const TaskCard = ({item}) => {
   const className = `
     flex
     items-center
@@ -18,25 +13,37 @@ const TaskCard = ({
     transition
     duration-3
     rounded-md
-    ${checked ? "line-through": ""}
-    ${checked ? "opacity-20": ""}
+    ${item.checked ? "line-through": ""}
+    ${item.checked ? "opacity-20": ""}
   `;
 
+  const {remove, update} = useTaskStore();
+
+  const checkHandler = () => {
+    update({
+      ...item,
+      checked: !item.checked
+    })
+  };
+
+  const deleteHandler = () => {
+    remove(item.id);
+  };
+ 
   return (
     <div
       className={className}
     >
-      { title }
+      { item.title }
       <div className="flex flex-row gap-1">
         <ButtonIcon
-          icon={checked ? "RedoOutlined" : "CheckOutlined"}
-          onClick={() => onCheck(index)}
+          icon={item.checked ? "RedoOutlined" : "CheckOutlined"}
+          onClick={checkHandler}
         />
         <ButtonIcon
           icon="DeleteOutlined"
-          onClick={() => onDelete(index)}
+          onClick={deleteHandler}
         />
-        {checked}
       </div>
     </div>
   );

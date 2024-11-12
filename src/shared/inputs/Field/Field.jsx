@@ -1,4 +1,5 @@
 const Field = ({
+  inputRef,
   ...props
 }) => {
   const className = `
@@ -10,6 +11,7 @@ const Field = ({
       className={className}
     >
       <input
+        ref={inputRef}
         className={`
           w-full
           p-2
