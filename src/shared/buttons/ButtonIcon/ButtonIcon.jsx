@@ -8,8 +8,7 @@ const ButtonIcon = ({
 }) => {
   const AntIcon = Icons[icon];
   const className = `
-    w-7
-    h-7
+    size-7
     p-0
     flex
     items-center
@@ -29,7 +28,7 @@ const ButtonIcon = ({
       type={type}
       {...props}
     >
-      {AntIcon && <AntIcon />}
+      {AntIcon && <AntIcon className="size-4" />}
     </button>
   );
 };
