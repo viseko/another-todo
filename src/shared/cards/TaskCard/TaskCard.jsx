@@ -13,7 +13,11 @@ const TaskCard = ({
     justify-between
     p-3
     bg-slate-300
+    hover:bg-slate-400
     rounded-md,
+    transition
+    duration-3
+    rounded-md
     ${checked ? "line-through": ""}
     ${checked ? "opacity-20": ""}
   `;

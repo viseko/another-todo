@@ -4,10 +4,14 @@ import Field from "../../shared/inputs/Field";
 import Button from "../../shared/buttons/Button/Button";
 import { useCallback, useState } from "react";
 import TaskCard from "../../shared/cards/TaskCard/TaskCard";
+import { v4 as uuidv4 } from "uuid";
+
+import useTaskStore from "../../app/zustand/useTaskStore";
 
 const TodoPanel = () => {
+  const {add, remove, update, allID, byID} = useTaskStore();
+
   const [newTaskName, setNewTaskName]  = useState("");
-  const [taskList, setTaskList] = useState([]);
 
   const handleTaskInput = useCallback((event) => {
     const value = event.target.value;
@@ -16,25 +20,37 @@ const TodoPanel = () => {
 
   const addTask = () => {
     const newTask = {
+      id: uuidv4(),
       title: newTaskName,
       checked: false
     };
 
-    setTaskList([...taskList, newTask]);
+    add(newTask);
     setNewTaskName("");
   };
 
-  const toggleCheckTask = (index) => {
-    const list = [...taskList];
-    const item = list[index];
-    item.checked = !item.checked;
-
-    setTaskList(list);
+  const toggleCheckTask = (id) => {
+    const item = byID[id];
+    update({
+      ...item,
+      checked: !item.checked
+    }) 
   };
 
-  const deleteTask = (index) => {
-    setTaskList(taskList.filter((item, itemIndex) => (itemIndex!== index)));
-  };
+  const taskCards = allID.map((id) => {
+    const item = byID[id];
+
+    return (
+      <TaskCard
+        title={item.title}
+        checked={item.checked}
+        key={id}
+        index={id}
+        onCheck={toggleCheckTask}
+        onDelete={remove}
+      />
+    )
+  });
 
   return (
     <PanelWrapper>
@@ -43,16 +59,7 @@ const TodoPanel = () => {
         <PanelDesk>
           <ul className="flex flex-col gap-2">
             {
-              taskList.map((task, index) => (
-                <TaskCard
-                  title={task.title}
-                  checked={task.checked}
-                  key={index}
-                  index={index}
-                  onCheck={toggleCheckTask}
-                  onDelete={deleteTask}
-                />
-              ))
+              taskCards
             }
           </ul>
         </PanelDesk>
