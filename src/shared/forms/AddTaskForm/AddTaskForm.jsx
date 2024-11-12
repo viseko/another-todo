@@ -5,24 +5,32 @@ import useTaskStore from "../../../app/zustand/useTaskStore";
 import { v4 as uuidv4 } from "uuid";
 
 const AddTaskForm = () => {
-  const [newTaskName, setNewTaskName]  = useState("");
+  // * методы хранилища
   const {add} = useTaskStore();
+
+  // * рефа на поле ввода имени новой задачи
   const inputRef = useRef();
 
+  // * заготовка под новую задачу
+  const createNewTask = () => ({
+    id: uuidv4(),
+    title: "",
+    checked: false
+  });
+
+  const [newTask, setNewTask]  = useState(createNewTask());
   const handleTaskInput = useCallback((event) => {
     const value = event.target.value;
-    setNewTaskName(value);
-  }, []);
+    setNewTask({
+      ...newTask,
+      title: value
+    });
+  }, [newTask]);
 
+  // * обработчик добавления новой задачи
   const addTask = () => {
-    const newTask = {
-      id: uuidv4(),
-      title: newTaskName,
-      checked: false
-    };
-
     add(newTask);
-    setNewTaskName("");
+    setNewTask(createNewTask());
     inputRef.current.focus();
   };
 
@@ -36,14 +44,14 @@ const AddTaskForm = () => {
     >
       <Field
         placeholder="Название задачи"
-        value={newTaskName}
+        value={newTask.title}
         onInput={handleTaskInput}
         inputRef={inputRef}
       />
       <Button
         type="submit"
         text="Добавить"
-        disabled={newTaskName.length === 0}
+        disabled={newTask.title.length === 0}
       />
     </form>
   );
