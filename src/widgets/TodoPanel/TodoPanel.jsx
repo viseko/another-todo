@@ -5,9 +5,9 @@ import {
   PanelControls,
   PanelDesk,
   PanelWrapper
-} from "../../shared/layout/Panel";
+} from "@/shared/layout/Panel";
 
-import AddTaskForm from "../../shared/forms/AddTaskForm/AddTaskForm";
+import AddTaskForm from "@/shared/forms/AddTaskForm/AddTaskForm";
 
 const TodoPanel = () => (
   <PanelWrapper>

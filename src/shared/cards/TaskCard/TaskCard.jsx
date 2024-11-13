@@ -1,5 +1,5 @@
-import ButtonIcon from "../../buttons/ButtonIcon";
-import useTaskStore from "../../../app/zustand/useTaskStore";
+import ButtonIcon from "@/shared/buttons/ButtonIcon";
+import useTaskStore from "@/app/zustand/useTaskStore";
 
 const TaskCard = ({item}) => {
   const className = `

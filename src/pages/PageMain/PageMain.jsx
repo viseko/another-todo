@@ -1,5 +1,5 @@
-import Page from "../../shared/layout/Page";
-import TodoPanel from "../../widgets/TodoPanel";
+import Page from "@/shared/layout/Page";
+import TodoPanel from "@/widgets/TodoPanel";
 
 const PageMain = () => {
   return (

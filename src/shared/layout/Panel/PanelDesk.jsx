@@ -1,5 +1,5 @@
-import useTaskStore from "../../../app/zustand/useTaskStore";
-import TaskCard from "../../cards/TaskCard/TaskCard";
+import useTaskStore from "@/app/zustand/useTaskStore";
+import TaskCard from "@/shared/cards/TaskCard/TaskCard";
 
 
 const PanelDesk = () => {

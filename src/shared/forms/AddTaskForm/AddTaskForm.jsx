@@ -1,7 +1,7 @@
-import Field from "../../../shared/inputs/Field";
-import Button from "../../../shared/buttons/Button/Button";
-import { useState, useCallback, useRef } from "react";
-import useTaskStore from "../../../app/zustand/useTaskStore";
+import Field from "@/shared/inputs/Field";
+import Button from "@/shared/buttons/Button/Button";
+import { useState, useCallback, useRef, useEffect } from "react";
+import useTaskStore from "@/app/zustand/useTaskStore";
 import { v4 as uuidv4 } from "uuid";
 
 const AddTaskForm = () => {
@@ -10,6 +10,11 @@ const AddTaskForm = () => {
 
   // * рефа на поле ввода имени новой задачи
   const inputRef = useRef();
+  
+  // * фокусимся сразу при монтировании формы
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   // * заготовка под новую задачу
   const createNewTask = () => ({

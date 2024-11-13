@@ -1,4 +1,4 @@
-import PageMain from "../pages/PageMain"
+import PageMain from "@/pages/PageMain"
 
 function App() {
   return (
