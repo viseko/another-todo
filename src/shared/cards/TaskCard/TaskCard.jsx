@@ -33,8 +33,8 @@ const TaskCard = ({item}) => {
     <div
       className={className}
     >
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-row items-center justify-between gap-3">
+      <div className="flex flex-col gap-1">
+        <div className="flex flex-row items-center justify-between gap-2">
           <div className="text-lg">
             { item.title }
           </div>
@@ -51,7 +51,7 @@ const TaskCard = ({item}) => {
           </div>
         </div>
         {
-          Boolean(item.description.length) && (
+          Boolean(item.description && item.description.length) && (
             <div className="text-sm text-slate-600">
               {item.description}
             </div>
