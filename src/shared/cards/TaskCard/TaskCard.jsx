@@ -4,8 +4,7 @@ import useTaskStore from "@/app/zustand/useTaskStore";
 const TaskCard = ({item}) => {
   const className = `
     flex
-    items-center
-    justify-between
+    flex-col
     p-3
     bg-slate-300
     hover:bg-slate-400
@@ -34,16 +33,30 @@ const TaskCard = ({item}) => {
     <div
       className={className}
     >
-      { item.title }
-      <div className="flex flex-row gap-1">
-        <ButtonIcon
-          icon={item.checked ? "RedoOutlined" : "CheckOutlined"}
-          onClick={checkHandler}
-        />
-        <ButtonIcon
-          icon="DeleteOutlined"
-          onClick={deleteHandler}
-        />
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row items-center justify-between gap-3">
+          <div className="text-lg">
+            { item.title }
+          </div>
+
+          <div className="flex gap-1">
+            <ButtonIcon
+              icon={item.checked ? "RedoOutlined" : "CheckOutlined"}
+              onClick={checkHandler}
+            />
+            <ButtonIcon
+              icon="DeleteOutlined"
+              onClick={deleteHandler}
+            />
+          </div>
+        </div>
+        {
+          Boolean(item.description.length) && (
+            <div className="text-sm text-slate-600">
+              {item.description}
+            </div>
+          )
+        }
       </div>
     </div>
   );

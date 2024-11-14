@@ -1,29 +1,27 @@
+import "./Field.css";
+
 const Field = ({
   inputRef,
   ...props
 }) => {
-  const className = `
-    w-full
-  `;
+  if (props.type === "textarea") {
+    return (
+      <div className="w-full">
+        <textarea
+          ref={inputRef}
+          className="field"
+          {...props}
+        />
+      </div>
+    )
+  }
 
   return (
-    <div
-      className={className}
-    >
+    <div className="w-full">
       <input
         ref={inputRef}
-        className={`
-          w-full
-          p-2
-          bg-slate-100
-          hover:bg-slate-50
-          focus:bg-white
-          rounded-md
-          transition
-          duration-2
-          outline-none
-        `}
-        type="text"
+        className="field"
+        type={props.type || "text"}
         {...props}
       />
     </div>
