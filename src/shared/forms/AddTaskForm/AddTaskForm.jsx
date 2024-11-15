@@ -10,6 +10,11 @@
       newTask,
       setTitle,
       setDescription,
+      setCost,
+      setDifficult,
+      setPriority,
+      setDeadline,
+      setTimeCost,
       addTask,
     } = useTaskCreator();
 
@@ -42,29 +47,37 @@
           type="textarea"
         />
         <Field
-          label="Прогнозируемое время"
-          placeholder="Времязатраты"
+          label="Оценка времени"
+          value={newTask.timeCost}
+          onInput={setTimeCost}
+          placeholder="Оценка срока"
           type="time"
         />
         <Field
           label="Дедлайн"
+          value={newTask.dateDeadline}
+          onInput={setDeadline}
           placeholder="Дедлайн"
           type="datetime-local"
         />
         <Field
-          label="Фин. затраты, руб"
+          label="Оценка, руб"
+          value={newTask.cost}
+          onInput={setCost}
           placeholder="0"
           type="number"
         />
         <ScaleRadio
           label="Приоритет"
           size="5"
-          value="2"
+          value={newTask.priority}
+          onChange={setPriority}
         />
         <ScaleRadio
           label="Сложность"
           size="5"
-          value="0"
+          value={newTask.difficult}
+          onChange={setDifficult}
         />
         <Button
           type="submit"

@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+import { ClockCircleOutlined } from "@ant-design/icons";
 import ButtonIcon from "@/shared/buttons/ButtonIcon";
 import useTaskStore from "@/app/zustand/useTaskStore";
 
@@ -28,6 +30,34 @@ const TaskCard = ({item}) => {
   const deleteHandler = () => {
     remove(item.id);
   };
+
+  const formattedDate = useMemo(() => {
+    const timestamp = item.dateCreated;
+    if (!timestamp) return null;
+
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    return `${day}.${month}.${year}`;
+  }, [item]);
+
+  const formattedDeadline = useMemo(() => {
+    const deadline = item.dateDeadline;
+    if (!deadline) return null;
+
+    const date = new Date(deadline);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+
+    return `${day}.${month}.${year}-${hour}:${minutes}`;
+  }, [item]);
+
+  const priorityColors = ["green", "lime", "yellow", "orange", "red"];
  
   return (
     <div
@@ -57,6 +87,45 @@ const TaskCard = ({item}) => {
             </div>
           )
         }
+        {/* Футер */}
+        <div className="flex flex-row gap-2 items-center pt-4 text-xs text-slate-500">
+          { formattedDate && formattedDate }
+          {
+            formattedDeadline && (
+              <div className="p-1 rounded-md bg-red-800 text-white">{formattedDeadline}</div>
+            )
+          }
+          {
+            Boolean(item.timeCost) && (
+              <div className="p-1 flex items-center rounded-md bg-slate-500 text-white">
+                <ClockCircleOutlined className="size-3 mr-1" />
+                &nbsp;
+                {item.timeCost}
+              </div>
+            )
+          }
+          {
+            Boolean(item.cost) && (
+              <div className="p-1 rounded-md bg-slate-500 text-white">{item.cost} руб.</div>
+            )
+          }
+          {
+            Boolean(item.difficult) && (
+              <div className="flex flex-row items-center gap-1">
+                Сложность:
+                <div className={`size-4 rounded-xl bg-${priorityColors[item.difficult - 1]}-500 `} />
+              </div>
+            )
+          }
+          {
+            Boolean(item.priority) && (
+              <div className="flex flex-row items-center gap-1">
+                Приоритет:
+                <div className={`size-4 rounded-xl bg-${priorityColors[item.priority - 1]}-500 `} />
+              </div>
+            )
+          }
+        </div>
       </div>
     </div>
   );

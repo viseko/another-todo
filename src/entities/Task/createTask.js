@@ -6,11 +6,12 @@ const createTask = () => ({
   description: "",
   checked: false,
   checkLists: [],
-  time: {
-    created: null,
-    estimated: null,
-    spent: null
-  }
+  priority: 0,
+  difficult: 0,
+  dateCreated: 0,
+  dateDeadline: "",
+  timeCost: "",
+  cost: 0,
 });
 
 export default createTask;
