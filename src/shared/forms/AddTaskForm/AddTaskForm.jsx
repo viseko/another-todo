@@ -2,6 +2,7 @@
   import Button from "@/shared/buttons/Button/Button";
   import { useRef, useEffect } from "react";
   import useTaskCreator from "./hooks/useTaskCreator";
+  import ScaleRadio from "@/shared/inputs/ScaleRadio";
 
   const AddTaskForm = () => {
     // * хук для создания новой задачи
@@ -12,7 +13,7 @@
       addTask,
     } = useTaskCreator();
 
-    // * рефа на поле ввода названия задачи (для автофокуса)
+    // * рефа для автофокуса
     const inputRef = useRef();
     useEffect(() => {
       inputRef.current.focus();
@@ -39,6 +40,31 @@
           value={newTask.description}
           onInput={setDescription}
           type="textarea"
+        />
+        <Field
+          label="Прогнозируемое время"
+          placeholder="Времязатраты"
+          type="time"
+        />
+        <Field
+          label="Дедлайн"
+          placeholder="Дедлайн"
+          type="datetime-local"
+        />
+        <Field
+          label="Фин. затраты, руб"
+          placeholder="0"
+          type="number"
+        />
+        <ScaleRadio
+          label="Приоритет"
+          size="5"
+          value="2"
+        />
+        <ScaleRadio
+          label="Сложность"
+          size="5"
+          value="0"
         />
         <Button
           type="submit"
