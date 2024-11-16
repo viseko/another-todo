@@ -37,7 +37,7 @@ const TaskCard = ({item}) => {
 
     const date = new Date(timestamp);
     const year = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const day = date.getDate();
 
     return `${day}.${month}.${year}`;
@@ -47,12 +47,32 @@ const TaskCard = ({item}) => {
     const deadline = item.dateDeadline;
     if (!deadline) return null;
 
+    const now = new Date();
     const date = new Date(deadline);
+
+    if (date < now) {
+      return "Просрочена!"
+    }
+
     const year = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const day = date.getDate();
     const hour = date.getHours();
     const minutes = date.getMinutes();
+
+    const nowYear = now.getFullYear();
+    const nowMonth = now.getMonth() + 1;
+    const nowDate = now.getDate();
+
+    if ((nowYear === year) && (nowMonth === month)) {
+      if (day === nowDate) {
+        return `Сегодня в ${hour}:${minutes}`;
+      }
+
+      if (day === nowDate + 1) {
+        return `Завтра в ${hour}:${minutes}`;
+      }
+    }
 
     return `${day}.${month}.${year}-${hour}:${minutes}`;
   }, [item]);
@@ -92,21 +112,20 @@ const TaskCard = ({item}) => {
           { formattedDate && formattedDate }
           {
             formattedDeadline && (
-              <div className="p-1 rounded-md bg-red-800 text-white">{formattedDeadline}</div>
+              <div className="py-1 px-2 rounded-md bg-red-800 text-white">{formattedDeadline}</div>
             )
           }
           {
             Boolean(item.timeCost) && (
-              <div className="p-1 flex items-center rounded-md bg-slate-500 text-white">
-                <ClockCircleOutlined className="size-3 mr-1" />
-                &nbsp;
+              <div className="py-1 px-2 flex items-center rounded-md bg-slate-500 text-white">
+                <ClockCircleOutlined className="mr-1" />
                 {item.timeCost}
               </div>
             )
           }
           {
             Boolean(item.cost) && (
-              <div className="p-1 rounded-md bg-slate-500 text-white">{item.cost} руб.</div>
+              <div className="py-1 px-2 rounded-md bg-slate-500 text-white">{item.cost} руб.</div>
             )
           }
           {

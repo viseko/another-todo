@@ -6,29 +6,18 @@ export default function useTaskCreator() {
   const [newTask, setNewTask] = useState(createTask());
   const { add } = useTaskStore();
 
-  // * ФВП для генерации методов
-  const setTaskProperty = (property) =>
-    useCallback(
-      (event) => {
-        const value = event.target.value;
-        setNewTask({
-          ...newTask,
-          [property]: value,
-        });
-      },
-      [newTask]
-    );
+  const setTask = (property, getValue) => useCallback(
+    (value) => {
+      setNewTask((prevTask) => ({
+        ...prevTask,
+        [property]: getValue(value),
+      }));
+    },
+    []
+  );
 
-  const setTaskValue = (property) =>
-    useCallback(
-      (value) => {
-        setNewTask({
-          ...newTask,
-          [property]: value,
-        });
-      },
-      [newTask]
-    );
+  const setTaskProperty = (property) => setTask(property, (event) => event.target.value);
+  const setTaskValue = (property) => setTask(property, (value) => value);
 
   // * установка свойств
   const setTitle = setTaskProperty("title");
@@ -43,7 +32,7 @@ export default function useTaskCreator() {
   const addTask = () => {
     const updatedTask = {
       ...newTask,
-      dateCreated: Number(new Date())
+      dateCreated: Number(new Date()),
     };
     add(updatedTask);
     setNewTask(createTask());
