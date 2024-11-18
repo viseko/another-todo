@@ -3,49 +3,56 @@ import {persist} from "zustand/middleware";
 
 const addItem = (state, item) => {
   const {id} = item;
-  state.byID[id] = item;
-  state.allID.push(id);
-
   return {
-    ...state
+    ...state,
+    byID: {
+      ...state.byID,
+      [id]: item,
+    },
+    allID: [...state.allID, id]
   };
 };
 
 const removeItem = (state, id) => {
-  delete state.byID[id];
-  state.allID = state.allID.filter(itemID => itemID !== id);
-
+  const { [id]: _, ...newByID } = state.byID;
   return {
-    ...state
+    ...state,
+    byID: newByID,
+    allID: state.allID.filter(itemID => itemID !== id)
   };
 };
 
 const updateItem = (state, payload) => {
   const {id} = payload;
-  const targetItem = state.byID[id];
-  state.byID[id] = {
-    ...targetItem,
-    ...payload
-  };
-
   return {
-    ...state
+    ...state,
+    byID: {
+      ...state.byID,
+      [id]: {
+        ...state.byID[id],
+        ...payload
+      }
+    }
   };
-} ;
+};
 
 const useTaskStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       byID: {},
       allID: [],
+      editMode: false,
+      taskToEdit: null,
       add: (item) => set(state => addItem(state, item)),
       remove: (id) => set(state => removeItem(state, id)),
-      update: (payload) => set(state => updateItem(state, payload))
+      update: (payload) => set(state => updateItem(state, payload)),
+      setEditMode: (boolean) => set({ editMode: boolean }),
+      setTaskToEdit: (task) => set({ taskToEdit: task })
     }),
     {
-      name: "cards" 
+      name: "cards"
     }
   )
 );
 
-export default useTaskStore;  
+export default useTaskStore;
