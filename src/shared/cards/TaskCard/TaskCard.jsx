@@ -91,6 +91,9 @@ const TaskCard = ({item}) => {
 
           <div className="flex gap-1">
             <ButtonIcon
+              icon="EditOutlined"
+            />
+            <ButtonIcon
               icon={item.checked ? "RedoOutlined" : "CheckOutlined"}
               onClick={checkHandler}
             />
