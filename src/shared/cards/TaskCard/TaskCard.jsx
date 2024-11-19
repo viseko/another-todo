@@ -2,23 +2,26 @@ import { useMemo } from "react";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import ButtonIcon from "@/shared/buttons/ButtonIcon";
 import useTaskStore from "@/app/zustand/useTaskStore";
+import cn from "classnames";
 
 const TaskCard = ({item}) => {
-  const className = `
-    flex
-    flex-col
-    p-3
-    bg-slate-300
-    hover:bg-slate-400
-    rounded-md,
-    transition
-    duration-3
-    rounded-md
-    ${item.checked ? "line-through": ""}
-    ${item.checked ? "opacity-20": ""}
-  `;
+  const className = cn(
+    "flex",
+    "flex-col",
+    "p-3",
+    "bg-slate-300",
+    "hover:bg-slate-400",
+    "rounded-md",
+    "transition",
+    "duration-3",
+    "rounded-md",
+    {
+      "line-through": item.checked,
+      "opacity-20": item.checked
+    }
+  );
 
-  const {remove, update} = useTaskStore();
+  const {remove, update, editTask} = useTaskStore();
 
   const checkHandler = () => {
     update({
@@ -28,7 +31,17 @@ const TaskCard = ({item}) => {
   };
 
   const deleteHandler = () => {
+    // ** выход из режима редактирования, если редактируемую карточку удаляем
+    if (item.id === taskToEdit) {
+      editTask(null);
+    }
+
     remove(item.id);
+  };
+
+  const editHandler = () => {
+    editTask(item.id);
+    console.log(item.id);
   };
 
   const formattedDate = useMemo(() => {
@@ -90,9 +103,13 @@ const TaskCard = ({item}) => {
           </div>
 
           <div className="flex gap-1">
-            <ButtonIcon
-              icon="EditOutlined"
-            />
+            {
+              !item.checked && 
+              <ButtonIcon
+                icon="EditOutlined"
+                onClick={editHandler}
+              />
+            }
             <ButtonIcon
               icon={item.checked ? "RedoOutlined" : "CheckOutlined"}
               onClick={checkHandler}

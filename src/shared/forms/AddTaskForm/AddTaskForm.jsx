@@ -1,6 +1,6 @@
   import Field from "@/shared/inputs/Field";
   import Button from "@/shared/buttons/Button/Button";
-  import { useRef, useEffect } from "react";
+  import { useRef, useEffect, useCallback } from "react";
   import useTaskCreator from "./hooks/useTaskCreator";
   import ScaleRadio from "@/shared/inputs/ScaleRadio";
 
@@ -24,15 +24,18 @@
       inputRef.current.focus();
     }, []);
 
+    // * обработка отправки
+    const submitHandler = useCallback((event) => {
+      event.preventDefault();
+      addTask();
+      inputRef.current.focus();
+    });
+
     // * рендер
     return (
       <form
         className="flex flex-col gap-2"
-        onSubmit={(e) => {
-          e.preventDefault();
-          addTask();
-          inputRef.current.focus();
-        }}
+        onSubmit={submitHandler}
       >
         <Field
           placeholder="Название задачи"

@@ -4,7 +4,7 @@ import createTask from "@/entities/Task/createTask";
 
 export default function useTaskCreator() {
   const [newTask, setNewTask] = useState(createTask());
-  const { add } = useTaskStore();
+  const { add, update } = useTaskStore();
 
   const setTask = (property, getValue) => useCallback(
     (value) => {
@@ -38,6 +38,14 @@ export default function useTaskCreator() {
     setNewTask(createTask());
   };
 
+  // * обновление существующей задачи
+  const updateTask = () => {
+    update({
+      ...newTask
+    });
+    setNewTask(createTask());
+  };
+
   return {
     setTitle,
     addTask,
@@ -48,5 +56,7 @@ export default function useTaskCreator() {
     setDeadline,
     setTimeCost,
     newTask,
+    setNewTask,
+    updateTask
   };
 }

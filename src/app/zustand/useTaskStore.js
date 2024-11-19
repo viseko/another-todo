@@ -46,8 +46,10 @@ const useTaskStore = create(
       add: (item) => set(state => addItem(state, item)),
       remove: (id) => set(state => removeItem(state, id)),
       update: (payload) => set(state => updateItem(state, payload)),
-      setEditMode: (boolean) => set({ editMode: boolean }),
-      setTaskToEdit: (task) => set({ taskToEdit: task })
+      editTask: (id) => {
+        const task = get().byID[id];
+        set({taskToEdit: task, editMode: Boolean(task)});
+      }
     }),
     {
       name: "cards"
