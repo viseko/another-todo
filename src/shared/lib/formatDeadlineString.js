@@ -3,28 +3,44 @@ export default function formatDeadlineString(dateString) {
   const date = new Date(dateString);
 
   if (date < now) {
-    return "Просрочена!"
+    return "Просрочена!";
   }
 
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
+  const formatDate = (date) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Intl.DateTimeFormat('ru-RU', options).format(date);
+  };
 
-  const nowYear = now.getFullYear();
-  const nowMonth = now.getMonth() + 1;
-  const nowDate = now.getDate();
+  const formatTime = (date) => {
+    const options = { hour: '2-digit', minute: '2-digit' };
+    return new Intl.DateTimeFormat('ru-RU', options).format(date);
+  };
 
-  if ((nowYear === year) && (nowMonth === month)) {
-    if (day === nowDate) {
-      return `Сегодня в ${hour}:${minutes}`;
-    }
+  const isToday = (now, date) => {
+    return (
+      now.getFullYear() === date.getFullYear() &&
+      now.getMonth() === date.getMonth() &&
+      now.getDate() === date.getDate()
+    );
+  };
 
-    if (day === nowDate + 1) {
-      return `Завтра в ${hour}:${minutes}`;
-    }
+  const isTomorrow = (now, date) => {
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    return (
+      tomorrow.getFullYear() === date.getFullYear() &&
+      tomorrow.getMonth() === date.getMonth() &&
+      tomorrow.getDate() === date.getDate()
+    );
+  };
+
+  if (isToday(now, date)) {
+    return `Сегодня в ${formatTime(date)}`;
   }
 
-  return `${day}.${month}.${year}-${hour}:${minutes}`;
+  if (isTomorrow(now, date)) {
+    return `Завтра в ${formatTime(date)}`;
+  }
+
+  return `${formatDate(date)}-${formatTime(date)}`;
 }

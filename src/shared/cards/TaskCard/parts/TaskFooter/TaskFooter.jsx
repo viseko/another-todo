@@ -27,15 +27,15 @@ const TaskFooter = () => {
   return (
     <div className={className}>
       { formattedDate }
-      { item.deadline && <Badge text={formattedDeadline} theme="red" /> }
-      { Boolean(item.timeCost) && <Badge text={item.timeCost} icon="ClockCircleOutlined" /> }
-      {Boolean(item.cost) && <Badge text={`${item.cost} руб.`} />}
-      {Boolean(item.difficult) && (
+      { formattedDeadline && <Badge text={formattedDeadline} theme="red" /> }
+      { item.timeCost && <Badge text={item.timeCost} icon="ClockCircleOutlined" /> }
+      { item.cost && <Badge text={`${item.cost} руб.`} /> }
+      { item.difficult && (
         <div className="flex flex-row items-center gap-1">
           Сложность: <StatusIndicator value={item.difficult} />
         </div>
       )}
-      {Boolean(item.priority) && (
+      { item.priority && (
         <div className="flex flex-row items-center gap-1">
           Приоритет: <StatusIndicator value={item.priority} />
         </div>
