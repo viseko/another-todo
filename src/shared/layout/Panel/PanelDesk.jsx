@@ -15,12 +15,10 @@ const PanelDesk = () => {
 
   return (
     <div
-      className="bg-slate-100 grow p-4 rounded-md"
+      className="bg-slate-100 grow p-2"
     >
       <ul className="flex flex-col gap-2">
-        {
-          cardList
-        }
+        { cardList }
       </ul>
     </div>
   );

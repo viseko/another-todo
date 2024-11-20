@@ -1,4 +1,4 @@
-import * as Icons from "@ant-design/icons";
+import AntIcon from "@/shared/small-parts/AntIcon";
 
 const ButtonIcon = ({
   icon,
@@ -6,9 +6,8 @@ const ButtonIcon = ({
   title,
   ...props
 }) => {
-  const AntIcon = Icons[icon];
   const className = `
-    size-7
+    size-6
     p-0
     flex
     items-center
@@ -28,7 +27,7 @@ const ButtonIcon = ({
       type={type}
       {...props}
     >
-      {AntIcon && <AntIcon className="size-4" />}
+      { icon && <AntIcon name={icon} className="size-3" /> }
     </button>
   );
 };

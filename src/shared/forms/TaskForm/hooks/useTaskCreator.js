@@ -3,7 +3,7 @@ import useTaskStore from "@/app/zustand/useTaskStore";
 import createTask from "@/entities/Task/createTask";
 
 export default function useTaskCreator() {
-  const [newTask, setNewTask] = useState(createTask());
+  const [task, setNewTask] = useState(createTask());
   const { add, update } = useTaskStore();
 
   const setTask = (property, getValue) => useCallback(
@@ -28,35 +28,41 @@ export default function useTaskCreator() {
   const setDifficult = setTaskValue("difficult");
   const setPriority = setTaskValue("priority");
 
+  // * подготовка новой задачи
+  const prepareEmptyTask = () => {
+    setNewTask(createTask());
+  };
+
   // * добавление созданной задачи
   const addTask = () => {
     const updatedTask = {
-      ...newTask,
+      ...task,
       dateCreated: Number(new Date()),
     };
     add(updatedTask);
-    setNewTask(createTask());
+    prepareEmptyTask();
   };
 
   // * обновление существующей задачи
   const updateTask = () => {
     update({
-      ...newTask
+      ...task
     });
-    setNewTask(createTask());
+    prepareEmptyTask();
   };
 
   return {
+    task,
+    setNewTask,
     setTitle,
-    addTask,
     setDescription,
     setCost,
     setDifficult,
     setPriority,
     setDeadline,
     setTimeCost,
-    newTask,
-    setNewTask,
-    updateTask
+    addTask,
+    updateTask,
+    prepareEmptyTask
   };
 }

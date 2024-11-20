@@ -3,11 +3,11 @@ const PanelHeader = ({children, title}) => {
   return (
     <div
       className={`
-        p-4
+        px-4
+        py-2
         text-white
         text-lg
         bg-slate-800
-        rounded-md
       `}
     >
       {title}
