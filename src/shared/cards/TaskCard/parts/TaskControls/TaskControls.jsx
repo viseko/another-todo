@@ -29,13 +29,14 @@ const TaskControls = () => {
   return (
     <div className="flex gap-1">
       {!item.checked && (
-        <ButtonIcon icon="EditOutlined" onClick={editHandler} />
+        <ButtonIcon icon="mdiPencil" title="Редактировать" onClick={editHandler} />
       )}
       <ButtonIcon
-        icon={item.checked ? "RedoOutlined" : "CheckOutlined"}
+        icon={item.checked ? "mdiRedo" : "mdiCheck"}
+        title={item.checked ? "Возобновить" : "Отметить выполненным"}
         onClick={checkHandler}
       />
-      <ButtonIcon icon="DeleteOutlined" onClick={deleteHandler} />
+      <ButtonIcon icon="mdiTrashCan" title="Удалить" onClick={deleteHandler} />
     </div>
   );
 };

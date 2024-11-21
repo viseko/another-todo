@@ -1,4 +1,4 @@
-import AntIcon from "@/shared/small-parts/AntIcon";
+import MaterialIcon from "@/shared/small-parts/MaterialIcon";
 
 const ButtonIcon = ({
   icon,
@@ -27,7 +27,7 @@ const ButtonIcon = ({
       type={type}
       {...props}
     >
-      { icon && <AntIcon name={icon} className="size-3" /> }
+      { icon && <MaterialIcon name={icon} size="16" /> }
     </button>
   );
 };

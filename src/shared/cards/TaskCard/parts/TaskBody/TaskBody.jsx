@@ -1,14 +1,20 @@
 import { useTaskContext } from "../../context/TaskContext";
+import TaskTimer from "../TaskTimer";
 
 const TaskBody = () => {
   const {item} = useTaskContext();
 
   const isDescriptionExist = Boolean(item.description && item.description.length);
-  if (!isDescriptionExist) return null;
 
   return (
-    <div className="text-sm text-slate-600">
-      {item.description}
+    <div className="flex flex-col gap-3">
+      <TaskTimer />
+      {
+        isDescriptionExist && 
+        <div className="text-sm text-slate-600">
+          {item.description}
+        </div>
+      }
     </div>
   );
 };

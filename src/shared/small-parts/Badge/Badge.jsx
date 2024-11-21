@@ -1,5 +1,5 @@
 import cn from "classnames";
-import AntIcon from "../AntIcon";
+import MaterialIcon from "../MaterialIcon";
 
 const Badge = ({
   text,
@@ -20,7 +20,7 @@ const Badge = ({
         }
       )
     }>
-      {icon && <AntIcon name={icon} />}
+      {icon && <MaterialIcon name={icon} size="14" />}
       {text}
     </div>
   );
