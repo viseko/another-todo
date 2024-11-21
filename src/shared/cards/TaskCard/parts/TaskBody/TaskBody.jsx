@@ -8,7 +8,7 @@ const TaskBody = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <TaskTimer />
+      <TaskTimer taskID={item.id} />
       {
         isDescriptionExist && 
         <div className="text-sm text-slate-600">

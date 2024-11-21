@@ -9,16 +9,23 @@ const addItem = (state, item) => {
       ...state.byID,
       [id]: item,
     },
-    allID: [...state.allID, id]
+    allID: [...state.allID, id],
+    timers: {
+      ...state.timers,
+      [id]: 0
+    }
   };
 };
 
 const removeItem = (state, id) => {
+  // * откидываем удаляемый инстанс через дескруктуризацию
   const { [id]: _, ...newByID } = state.byID;
+  const { [id]: __, ...newTimers } = state.timers;
   return {
     ...state,
     byID: newByID,
-    allID: state.allID.filter(itemID => itemID !== id)
+    allID: state.allID.filter(itemID => itemID !== id),
+    timers: newTimers
   };
 };
 
@@ -49,7 +56,16 @@ const useTaskStore = create(
       editTask: (id) => {
         const task = get().byID[id];
         set({taskToEdit: task, editMode: Boolean(task)});
-      }
+      },
+      timers: {},
+      activeTimer: null,
+      setTimer: (id, time) => set((state) => ({
+        timers: {
+          ...state.timers,
+          [id]: time
+        }
+      })),
+      setActiveTimer: (id) => set({activeTimer: id}),
     }),
     {
       name: "cards"
