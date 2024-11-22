@@ -41,7 +41,7 @@ const TaskTimer = ({ taskID }) => {
       setActiveTimer(taskID);
     }
   };
-
+  
   useEffect(() => {
     if (activeTimer !== taskID) {
       setPlayState(false); // Останавливаем таймер, если активный таймер другой

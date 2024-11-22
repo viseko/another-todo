@@ -1,8 +1,28 @@
 import Icon from '@mdi/react';
-import * as Pathes from '@mdi/js';
+import {
+  mdiPencil,
+  mdiRedo,
+  mdiCheck,
+  mdiTrashCan,
+  mdiClockOutline,
+  mdiCurrencyRub,
+  mdiPlay,
+  mdiPause
+} from '@mdi/js';
+
+const icons = {
+  mdiPencil,
+  mdiRedo,
+  mdiCheck,
+  mdiTrashCan,
+  mdiClockOutline,
+  mdiCurrencyRub,
+  mdiPlay,
+  mdiPause
+};
 
 const MaterialIcon = ({className, name, size="20"}) => {
-  const path = Pathes[name];
+  const path = icons[name];
 
   return (
     <Icon
